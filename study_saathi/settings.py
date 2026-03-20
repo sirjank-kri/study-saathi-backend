@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
-
+from decouple import config
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,12 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=)+y0_yo)wc69!pa%rfeqcs8a(vy5cpgibn=z#b6#=2x&b^%2%'
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-your-secret-key-here')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']  # Update this later with your actual domain
+
 
 
 # Application definition
@@ -46,9 +49,11 @@ INSTALLED_APPS = [
     'core',
 ]
 
+# Middleware - add whitenoise
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # ← ADD THIS FIRST
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # ← ADD THIS
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -80,6 +85,7 @@ WSGI_APPLICATION = 'study_saathi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -119,16 +125,16 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
-
+# Static files
 STATIC_URL = 'static/'
-# CORS Settings (Allow React to connect)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+ #Update CORS for production
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    # Add your Vercel URL here after deployment
 ]
-
 CORS_ALLOW_CREDENTIALS = True
 
 # REST Framework Settings
