@@ -25,7 +25,7 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-your-secret-key-here'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = False
 
 
 # Application definition
@@ -126,27 +126,25 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# CORS Settings
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "https://study-saathi-frontend-5ew7.vercel.app",  # Your Vercel URL
+    "https://study-saathi-frontend-5ew7.vercel.app",
+    "https://studysathi.pythonanywhere.com",
 ]
-
 CORS_ALLOW_CREDENTIALS = True
 
-# Also update ALLOWED_HOSTS
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'study-saathi-api.onrender.com',
+    'studysathi.pythonanywhere.com',
+    '.pythonanywhere.com',
     '.vercel.app',
 ]
 
-# Add CSRF trusted origins (important for production)
 CSRF_TRUSTED_ORIGINS = [
     "https://study-saathi-frontend-5ew7.vercel.app",
-    "https://study-saathi-api.onrender.com",
+    "https://studysathi.pythonanywhere.com",
 ]
 # REST Framework Settings
 REST_FRAMEWORK = {
