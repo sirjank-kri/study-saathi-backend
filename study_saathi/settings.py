@@ -27,8 +27,12 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-your-secret-key-here'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['*']  # Update this later with your actual domain
-
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'study-saathi-api.onrender.com',  # ← ADD THIS
+    '.vercel.app',
+]
 
 
 # Application definition
@@ -129,11 +133,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
- #Update CORS for production
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "https://study-saathi.vercel.app",
+    "https://study-saathi-frontend-5ew7.vercel.app",  # ← ADD THIS
 ]
 CORS_ALLOW_CREDENTIALS = True
 
